@@ -1,0 +1,48 @@
+﻿@model WlBhcApp.Models.Order
+
+<div>
+    <h4>Order Info</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Customer Name")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.customer.Lastname),  @Html.DisplayFor(model => model.customer.Firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.product.ProdName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.product.ProdName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderedDate)
+        </dd>
+
+    </dl>
+</div>

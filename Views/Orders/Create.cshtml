@@ -1,0 +1,105 @@
+﻿@model WlBhcApp.ViewModels.NewOrder
+
+
+@{
+    ViewBag.Title = "Create Order";
+
+    var prods = new List<SelectListItem>() {
+        new SelectListItem{Text="Select a Product", Value="0" },
+
+    };
+    foreach (var prod in (List<WlBhcApp.Models.Product>)ViewData["PRODS"])
+    {
+
+        prods.Add(new SelectListItem { Text = prod.ProdName, Value = prod.ID.ToString() });
+    }
+
+    SelectList ProdDrpList = new SelectList(prods, "Value", "Text");
+}
+
+<script>
+    function DisProd() {
+        var prodid = $("#ProductID").val();
+        //alert(prodid);
+        $.ajax({
+            url: "/Orders/GetProduct",
+            type:"GET",
+            data: { ProdID: prodid },
+            cache: false,
+            async: true,
+            replace: true,
+            success: function (result) {
+                $("#ProdInfo").html(result);
+               
+            }
+            
+        });
+    }
+
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div  style="width:100%;">
+        
+            <div class="w3-cell-row w3-display-container">
+                <div class="w3-cell w3-light-grey " style="width:50%; height:450px;">
+
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.Partial("_NewCustomer")
+                    <div class=" w3-row w3-twothird">
+                        <div class="w3-cell w3-third w3-left-align">
+                            @Html.LabelFor(model => model.order.ProductID, htmlAttributes: new { @class = "control-label " })
+                        </div>
+                        <div class="w3-cell w3-twothird w3-left-align">
+
+                            @Html.DropDownList("ProductID", ProdDrpList, htmlAttributes: new { @class = " w3-round-large w3-border  BHInput", @onchange = "DisProd();" })
+
+
+                        </div>
+                    </div>
+
+                    <div class=" w3-row w3-twothird">
+                        <div class="w3-cell w3-third w3-left-align">
+                            @Html.LabelFor(model => model.order.Quantity, htmlAttributes: new { @class = "control-label " })
+                        </div>
+                        <div class="w3-cell w3-twothird w3-left-align">
+                            @Html.EditorFor(model => model.order.Quantity, new { htmlAttributes = new { @class = " w3-round-large w3-border BHInput" } })
+                            @Html.ValidationMessageFor(model => model.order.Quantity, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class=" w3-row w3-twothird">
+                        <div class="w3-cell w3-third w3-left-align">
+                            @Html.LabelFor(model => model.order.OrderPrice, htmlAttributes: new { @class = "control-label " })
+                        </div>
+                        <div class="w3-cell w3-twothird w3-left-align">
+                            @Html.Editor("OrderPrice", new { htmlAttributes = new { @class = " w3-round-large w3-border BHInput", @ID="OrderPrice" } })
+                            @Html.ValidationMessageFor(model => model.order.OrderPrice, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class=" w3-row w3-twothird">
+                        <div class="w3-cell w3-third w3-left-align" style="flex:inherit">
+
+                        </div>
+                        <div class="w3-cell w3-twothird w3-right">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="w3-cell w3-display-middle w3-display-right" style="width:40%; float:right" id="ProdInfo"></div>
+            </div>
+       
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

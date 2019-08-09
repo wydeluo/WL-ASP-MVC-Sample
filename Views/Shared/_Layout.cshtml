@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @System.Configuration.ConfigurationManager.AppSettings["AppName"]</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        function DoggleProdMenu() {
+            var mnprod = document.getElementById("mnProd");
+            if (mnprod != null) {
+                if (mnprod.style.display == 'block') {
+                    mnprod.style.display = 'none';
+                }
+                else {
+                    mnprod.style.display = 'block';
+                }
+            }
+        }
+
+        function DoggleOrderMenu() {
+            var mnOdr = document.getElementById("mnOdr");
+            if (mnOdr != null) {
+                if (mnOdr.style.display == 'block') {
+                    mnOdr.style.display = 'none';
+                }
+                else {
+                    mnOdr.style.display = 'block';
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+   
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container  ">
+           
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(@System.Configuration.ConfigurationManager.AppSettings["AppName"], "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse  ">
+                <ul class="nav navbar-nav ">
+                    <li class=" w3-text-black">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" onmouseover="DoggleProdMenu();" onmouseout="DoggleProdMenu();">Product</a>
+
+
+                        <ul id="mnProd" class="dropdown-menu" onmouseout="DoggleProdMenu();">
+                            <li> @Html.ActionLink("View", "Index", "Products")</li>
+                            <li> @Html.ActionLink("New Product", "Create", "Products")</li>
+
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" onmouseover="DoggleOrderMenu();" onmouseout="DoggleOrderMenu();">Order</a>
+
+
+                        <ul id="mnOdr" class="dropdown-menu" onmouseout="DoggleOrderMenu();">
+                            <li> @Html.ActionLink("View", "Index", "Orders")</li>
+                            <li> @Html.ActionLink("New Order", "Create", "Orders")</li>
+
+                        </ul>
+
+                    </li>
+                    <li class=" w3-text-black">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="w3-center" >
+            <div>
+               &copy; @DateTime.Now.Year -  @System.Configuration.ConfigurationManager.AppSettings["AppName"]
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

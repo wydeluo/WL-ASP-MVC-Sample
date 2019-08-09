@@ -1,0 +1,67 @@
+﻿@model IPagedList<WlBhcApp.Models.Order>
+
+<hr />
+<div class="w3-center" id="prodList" style="width:100%">
+    <div class="pagedList">
+
+        @Html.PagedListPager(Model, pageNo => Url.Action("Index", new { pageNo }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+    <table class="w3-table  w3-striped" style="width:90%">
+        <tr class="w3-dark-gray">
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().customer.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().customer.Lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().product.ProdName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Quantity)
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.OrderPrice)
+        </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().OrderedDate)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customer.Firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.customer.Lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.product.ProdName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.OrderPrice)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderedDate)
+        </td>
+        <td>
+
+            @Html.ActionLink("Details", "Details", new { id = item.ID })
+        </td>
+    </tr>
+        }
+
+    </table>
+    </div>

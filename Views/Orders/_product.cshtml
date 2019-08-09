@@ -1,0 +1,49 @@
+﻿@model WlBhcApp.Models.Product
+@if (Model != null)
+{
+    <script>
+        var prc=@Model.Price.ToString();
+ 
+        document.getElementById("OrderPrice").value = prc;
+       // document.getElementById("OrderPrice").value = "19.88";
+       
+    </script>
+<div class="w3-striped w3-light-gray w3-border-black" style="width:350px;height:200px; border-width:2px;border-style:inset">
+  
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProdName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProdName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProdDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProdDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+          
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProdAttributes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProdAttributes)
+        </dd>
+
+    </dl>
+</div>
+}

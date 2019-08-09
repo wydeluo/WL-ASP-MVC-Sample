@@ -1,0 +1,62 @@
+﻿
+
+@model IPagedList<WlBhcApp.Models.Product>
+
+@{
+    ViewBag.Title = "All Products";
+}
+
+<h2 class="w3-center"> Products</h2>
+
+<div class="w3-center" id="prodList" style="width:100%">
+
+    <div class="pagedList">
+
+        @Html.PagedListPager(Model, pageNo => Url.Action("Index", new { pageNo }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+    <table class="w3-table  w3-striped" style="width:90%">
+        <tr class="w3-dark-gray">
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ProdName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ProdDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ProdAttributes)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProdAttributes)
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) @Html.Label(" | ")
+                    }
+                    @Html.ActionLink("Details", "Details", new { id = item.ID })
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
